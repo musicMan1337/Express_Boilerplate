@@ -1,10 +1,11 @@
-# REACT Folders/Files
+# Node folders/files
 build
 node_modules
-public
 *.json
 *.md
-*.test.js
+
+# 3rd party stuffs
+.nyc_output
 
 # ON/OFF switch
 # *
