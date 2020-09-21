@@ -1,15 +1,22 @@
-const { NODE_ENV } = require('../config/config');
+const { NODE_ENV } = require('../../src/config/envConfig');
+
+const notFound = (req, res, next) => {
+  const error = new Error(`Not Found - ${req.originalUrl}`);
+  res.status(404);
+  next(error);
+};
 
 // eslint-disable-next-line no-unused-vars
 const errorHandler = (error, req, res, next) => {
-  let response;
-  if (NODE_ENV === 'production') {
-    response = { error: { message: 'server error' } };
-  } else {
-    console.error(error);
-    response = { message: error.message, error };
-  }
-  res.status(500).json(response);
+  const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+  res.status(statusCode);
+  res.json({
+    message: error.message,
+    stack: NODE_ENV === 'production' ? '🥞' : error.stack
+  });
 };
 
-module.exports = errorHandler
+module.exports = {
+  notFound,
+  errorHandler
+};

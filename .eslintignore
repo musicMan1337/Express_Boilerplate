@@ -3,6 +3,8 @@ build
 node_modules
 *.json
 *.md
+*.log
+*.test.js
 
 # 3rd party stuffs
 .nyc_output
