@@ -1,4 +1,3 @@
-require('dotenv').config();
 const path = require('path');
 const { format, transports, createLogger } = require('winston');
 
@@ -16,22 +15,22 @@ const consoleFormat = format.combine(
   format.printf((info) => `${info.timestamp} - ${info.level}: ${info.message}`)
 );
 
+const logger = createLogger();
+
 // create levels to generate unique transports
 const levels = ['error', 'warn', 'info', 'http', 'verbose', 'debug', 'silly'];
 
-const generateTransports = levels.map((level) => {
-  const filter = format((info) => (info.level === level ? info : false));
+levels.forEach((level) => {
+  const filter = format((log) => (log.level === level ? log : false));
 
-  return new transports.File({
-    filename: path.join(__dirname, `logs/${level}.log`),
-    level,
-    maxsize: 5000,
-    format: format.combine(filter(), fileFormat)
-  });
-});
-
-const logger = createLogger({
-  transports: generateTransports
+  logger.add(
+    new transports.File({
+      filename: path.join(__dirname, `logs/${level}.log`),
+      level,
+      maxsize: 5000,
+      format: format.combine(filter(), fileFormat)
+    })
+  );
 });
 
 if (NODE_ENV === 'development') {
