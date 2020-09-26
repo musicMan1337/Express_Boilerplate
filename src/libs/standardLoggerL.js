@@ -1,6 +1,6 @@
 const path = require('path');
 
-const { format, transports, createLogger } = require('winston');
+const { format, transports, createLogger, config } = require('winston');
 
 const { NODE_ENV } = require('../config/envConfig');
 
@@ -19,19 +19,25 @@ const consoleFormat = format.combine(
 );
 
 const logger = createLogger();
+const levels = Object.keys(config.npm.levels);
 
-const filename = path.resolve(__dirname, `logs/winston_logs.log`);
+levels.forEach((level) => {
+  // separates write files by level
+  const filter = format((log) => (log.level === level ? log : false));
 
-logger.add(
-  new transports.File({
-    filename,
-    level: 'http',
-    maxsize: 20000000, // 20MB
-    tailable: true,
-    zippedArchive: true,
-    format: fileFormat
-  })
-);
+  const filename = path.resolve(__dirname, `logs/${level}.log`);
+
+  logger.add(
+    new transports.File({
+      filename,
+      level,
+      maxsize: 20000000, // 20MB
+      tailable: true,
+      zippedArchive: true,
+      format: format.combine(filter(), fileFormat),
+    })
+  );
+});
 
 if (NODE_ENV === 'development') {
   logger.add(
