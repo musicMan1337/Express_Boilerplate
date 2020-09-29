@@ -2,10 +2,10 @@
   "name": "express-boilerplate",
   "version": "1.0.0",
   "description": "",
-  "main": "src/api/server.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node src/api/server.js",
-    "dev": "nodemon src/api/server.js",
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
     "lint": "eslint src/",
     "test": "mocha --require tests/testGlobals.js --recursive tests/",
     "coverage": "nyc npm run test",
