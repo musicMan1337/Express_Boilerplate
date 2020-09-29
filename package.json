@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
+      "dev": "nodemon src/index.js",
+
     "lint": "eslint src/",
     "test": "mocha --require tests/testGlobals.js --recursive tests/",
-    "coverage": "nyc npm run test",
-    "predeploy": "npm audit",
-    "deploy": "git push heroku master"
+      "coverage": "nyc npm run test",
+
+    "deploy": "git push heroku master",
+      "predeploy": "npm audit"
   },
   "keywords": [],
   "author": "",
