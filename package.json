@@ -2,7 +2,7 @@
   "name": "express-boilerplate",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "src/api/server.js",
   "scripts": {
     "start": "node src/api/server.js",
     "dev": "nodemon src/api/server.js",
