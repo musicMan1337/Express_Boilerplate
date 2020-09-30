@@ -4,7 +4,7 @@ const fs = require('fs');
 const { format, transports, createLogger } = require('winston');
 require('winston-daily-rotate-file');
 
-const { NODE_ENV } = require('../config/envConfig');
+const { NODE_ENV } = require('../../src/config');
 
 const fileFormat = format.combine(
   format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),

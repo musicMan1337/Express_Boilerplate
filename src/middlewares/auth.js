@@ -1,4 +1,4 @@
-const { API_TOKEN } = require('../../src/config/envConfig');
+const { API_TOKEN } = require('../../src/config');
 const logger = require('../../src/libs/logger');
 
 // eslint-disable-next-line consistent-return

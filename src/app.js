@@ -4,20 +4,20 @@ const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 
-const { NODE_ENV, CORS_ORIGIN } = require('../src/config/envConfig');
+const { NODE_ENV, CORS_ORIGIN_DEV, CORS_ORIGIN_PROD } = require('./config');
 
 const errors = require('../src/middlewares/errors');
 
 const morganOption = NODE_ENV === 'production' ? 'tiny' : 'dev';
+const morganSkip = { skip: NODE_ENV === 'test' };
+const corsOrigin = {
+  origin: NODE_ENV === 'production' ? CORS_ORIGIN_DEV : CORS_ORIGIN_PROD
+};
 
 const app = express();
-app.use(morgan(morganOption));
+app.use(morgan(morganOption, morganSkip));
+app.use(cors(corsOrigin));
 app.use(helmet());
-app.use(
-  cors({
-    origin: CORS_ORIGIN
-  })
-);
 
 app.get('/', (req, res) => {
   res.send('Express boilerplate initialized!');
@@ -26,8 +26,6 @@ app.get('/', (req, res) => {
 /*
 | ROUTES HERE -------------------------
 */
-
-
 
 /*
 |--------------------------------------

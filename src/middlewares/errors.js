@@ -1,4 +1,4 @@
-const { NODE_ENV } = require('../../src/config/envConfig');
+const { NODE_ENV } = require('../../src/config');
 
 const errorTypes = {
   ValidationError: 422,

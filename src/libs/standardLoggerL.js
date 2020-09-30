@@ -2,7 +2,7 @@ const path = require('path');
 
 const { format, transports, createLogger, config } = require('winston');
 
-const { NODE_ENV } = require('../config/envConfig');
+const { NODE_ENV } = require('../../src/config');
 
 const fileFormat = format.combine(
   format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
