@@ -1,8 +1,10 @@
 const path = require('path');
 
-const { format, transports, createLogger, config } = require('winston');
+const winston = require('winston');
 
 const { NODE_ENV } = require('../../src/config');
+
+const { format } = winston
 
 const fileFormat = format.combine(
   format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
@@ -18,8 +20,8 @@ const consoleFormat = format.combine(
   )
 );
 
-const logger = createLogger();
-const levels = Object.keys(config.npm.levels);
+const logger = winston.createLogger();
+const levels = Object.keys(winston.config.npm.levels);
 
 levels.forEach((level) => {
   // separates write files by level
@@ -28,7 +30,7 @@ levels.forEach((level) => {
   const filename = path.resolve(__dirname, `logs/${level}.log`);
 
   logger.add(
-    new transports.File({
+    new winston.transports.File({
       filename,
       level,
       maxsize: 20000000, // 20MB
@@ -41,7 +43,7 @@ levels.forEach((level) => {
 
 if (NODE_ENV === 'development') {
   logger.add(
-    new transports.Console({
+    new winston.transports.Console({
       level: 'silly',
       format: consoleFormat
     })

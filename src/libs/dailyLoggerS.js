@@ -1,10 +1,12 @@
 const path = require('path');
 const fs = require('fs');
 
-const { format, transports, createLogger } = require('winston');
-require('winston-daily-rotate-file');
+const winston = require('winston');
+// require('winston-daily-rotate-file');
 
 const { NODE_ENV } = require('../../src/config');
+
+const { format } = winston
 
 const fileFormat = format.combine(
   format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
@@ -20,13 +22,13 @@ const consoleFormat = format.combine(
   )
 );
 
-const logger = createLogger();
+const logger = winston.createLogger();
 
 const dirname = path.resolve(__dirname, 'logs/');
 const filename = `winston_logs.%DATE%`;
 const auditFile = path.resolve(__dirname, `logs/audits/audit.winston_logs.json`);
 
-const transport = new transports.DailyRotateFile({
+const transport = new winston.transports.DailyRotateFile({
   dirname,
   filename,
   extension: '.log',
@@ -64,7 +66,7 @@ logger.add(transport);
 
 if (NODE_ENV === 'development') {
   logger.add(
-    new transports.Console({
+    new winston.transports.Console({
       level: 'silly',
       format: consoleFormat
     })
