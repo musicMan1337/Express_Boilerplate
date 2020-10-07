@@ -1,4 +1,4 @@
-const { NODE_ENV } = require('../../src/config');
+const { NODE_ENV } = require('../config');
 
 const errorTypes = {
   ValidationError: 422,
@@ -11,16 +11,16 @@ const errorMessages = {
 
 const notFound = (req, res, next) => {
   const error = new Error(`Not found - ${req.originalUrl}`);
+
   res.status(404);
   next(error);
 };
 
-// eslint-disable-next-line no-unused-vars
 const errorHandler = (error, req, res, next) => {
   const statusCode =
     res.statusCode === 200 ? errorTypes[error.name] || 500 : res.statusCode;
-  res.status(statusCode);
-  res.json({
+
+  res.status(statusCode).json({
     status: statusCode,
     message: errorMessages[error.name] || error.message,
     stack: NODE_ENV === 'production' ? '🥞' : error.stack,

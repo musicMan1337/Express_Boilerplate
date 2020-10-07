@@ -10,6 +10,10 @@
 | }
 |
 | Why? Readability:
-| const { thingsRouter, stuffRouter, authRouter } = require('./routes')
+| const { thingsRouter, stuffRouter, userRouter } = require('./routes')
 */
+const usersRouter = require('./users.router');
 
+module.exports = {
+  usersRouter
+};
