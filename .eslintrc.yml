@@ -17,19 +17,18 @@ globals:
   expect: readonly
   supertest: readonly
 ignorePatterns:
-  - "/*"
-  - "!src/"
-  - "!tests/"
+  - '/*'
+  - '!src/'
+  - '!tests/'
 rules:
   camelcase: 0
   comma-dangle: 0
   no-unused-vars:
-    - "error"
-    - argsIgnorePattern: "next"
-    # specific to Express error handler
+    - error
+    - argsIgnorePattern: ^_
   linebreak-style:
-    - "error"
-    - "unix"
+    - error
+    - unix
   no-plusplus: 0
   no-return-assign: 0
   no-param-reassign: 0
