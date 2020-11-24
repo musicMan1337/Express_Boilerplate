@@ -22,16 +22,19 @@ ignorePatterns:
   - '!tests/'
 rules:
   camelcase: 0
-  comma-dangle: 0
   no-unused-vars:
+    #! example - if not using 'req': router.get((_req, res, next) => {})
     - error
     - argsIgnorePattern: ^_
   linebreak-style:
     - error
     - unix
+  no-empty-function:
+    - error
+    - allow:
+        - methods
   no-plusplus: 0
   no-return-assign: 0
   no-param-reassign: 0
   no-trailing-spaces: 0
   no-underscore-dangle: 0
-  import/no-useless-path-segments: 0
